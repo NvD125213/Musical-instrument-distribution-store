@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataModel;
 using DAL.Interface;
 using DAL.Helper;
+using DAL.Helper.Interface;
 
 namespace DAL
 {

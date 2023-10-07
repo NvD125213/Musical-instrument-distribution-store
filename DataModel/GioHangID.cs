@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataModel
 {
-    internal class UserModel
+    internal class GioHangID
     {
     }
 }

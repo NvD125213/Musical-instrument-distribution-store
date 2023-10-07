@@ -8,6 +8,7 @@ using DAL.Helper;
 using DAL.Interface;
 using DataModel;
 using System.Data;
+using DAL.Helper.Interface;
 
 namespace DAL
 {
@@ -21,32 +22,47 @@ namespace DAL
 
         public bool Create(CustomerModel model)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public CustomerModel GetDataByID(int id)
-        {
-            
             string msgError = "";
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_get_khach_by_id", "@id", id);
-                if(!string.IsNullOrEmpty(msgError))
+                var result = _dbHelper.ExecuteScalarSProcedureWithTransaction(out msgError, "sp_khach_update",
+                "@Id", model.Id,
+                "@Name", model.Name,
+                "@Phone", model.Phone,
+                "@Andress", model.Andress);
+                if ((result != null && !string.IsNullOrEmpty(result.ToString())) || !string.IsNullOrEmpty(msgError))
                 {
-                    throw new Exception(msgError);
-                }    
-                return dt.ConvertTo<CustomerModel>().FirstOrDefault();
+                    throw new Exception(Convert.ToString(result) + msgError);
+                }
+                return true;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-        
+        }
+
+        public void Delete(int id)
+        {
+            SqlCommand sqlCmd = new SqlCommand();
+            sqlCmd.CommandType = CommandType.Text;
+            sqlCmd.CommandText = "delete from Customer where Id=" + id + "";
+            int rowDeleted = sqlCmd.ExecuteNonQuery();
+
+        }
+
+        public CustomerModel GetDataByID(int id)
+        {
+
+            string msgError = "";
+
+            var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_get_khach_by_id", "@id", id);
+            if (!string.IsNullOrEmpty(msgError))
+            {
+                throw new Exception(msgError);
+            }
+            return dt.ConvertTo<CustomerModel>().FirstOrDefault();
+
         }
 
         public bool Update(CustomerModel model)

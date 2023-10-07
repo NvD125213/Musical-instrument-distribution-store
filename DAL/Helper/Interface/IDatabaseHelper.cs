@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL.Helper
+namespace DAL.Helper.Interface
 {
     public class StoreParameterInfo
     {
         public string StoreProcedureName { get; set; }
-        public List<Object> StoreProcedureParams { get; set; }
+        public List<object> StoreProcedureParams { get; set; }
     }
     public interface IDatabaseHelper
     {
@@ -132,7 +132,7 @@ namespace DAL.Helper
         /// <param name="outputParamCountNumber">outputParam Count Number</param>
         /// <param name="paramObjects">List Param Objects, Each Item include 'ParamName' and 'ParamValue'</param>
         /// <returns>List Object Result in query</returns>
-        List<Object> ReturnValuesFromExecuteSProcedure(out string msgError, string sprocedureName, int outputParamCountNumber, params object[] paramObjects);
+        List<object> ReturnValuesFromExecuteSProcedure(out string msgError, string sprocedureName, int outputParamCountNumber, params object[] paramObjects);
         #endregion 
     }
 

@@ -5,14 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 using DataModel;
 
-namespace DAL.Interface
+namespace BLL.Interfaces
 {
-    public partial interface ICustomerRespository
+    public interface ICustomerBLL
     {
         CustomerModel GetDataByID(int id);
         bool Create(CustomerModel model);
         bool Update(CustomerModel model);
         void Delete(int id);
+        
 
     }
 }
