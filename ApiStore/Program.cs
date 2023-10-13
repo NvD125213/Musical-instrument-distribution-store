@@ -15,6 +15,9 @@ builder.Services.AddTransient<IDatabaseHelper, DatabaseHelper>();
 builder.Services.AddTransient<ICustomerRespository, CustomerResponsitory>();
 builder.Services.AddTransient<ICustomerBLL, CustomerBLL>();
 
+builder.Services.AddTransient<IUserRespository, UserRespository>();
+builder.Services.AddTransient<IUserBLL, UserBLL>();
+
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

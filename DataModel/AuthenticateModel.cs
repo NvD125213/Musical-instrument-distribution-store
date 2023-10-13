@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace DataModel
 {
-    public class UserModel
+    public class AuthenticateModel
     {
-        [Key]
-        public int UserID { get; set; }
         [Required]
-        public string Ten { get; set; }
-        public string Email { get; set; }
+        public string TenDN { get; set; }
 
-        public string SDT { get; set; }
+        [Required]
         public string MatKhau { get; set; }
-        public string token { get; set; }
+    }
+    public class AppSettings
+    {
+        public string Secret { get; set; }
 
     }
 }

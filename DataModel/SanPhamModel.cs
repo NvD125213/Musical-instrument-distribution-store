@@ -9,18 +9,29 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DataModel
 {
-    public class ProductModel
+    public class SanPhamModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Desc { get; set; }
-        public double Price { get; set; }
-        public double OriginalPrice { get; set; }
-        public int Detail { get; set; }
-        public int Stock { get; set; }
-        public int ViewCount { get; set; }
-        public DateTime DateCreated { get; set; }
-        public int Sales { get; set; }
+        [Key]
+        public int SanPhamID { get; set; }
+        [Required]
+        public string Ten { get; set; }
+        public string SeoTitle { get; set; }
+        public bool TrangThai { get; set; }
+        public string ListAnh { get; set; }
+        public string Anh { get; set; }
+        public double Gia { get; set; }
+        public double KhuyenMai { get; set; }
+
+        public int SoLuongTon { get; set; }
+        public int BaoHanh { get; set; }
+        public DateTime SanPhamHot { get; set; }
+        public string ThongSoChiTiet { get; set; }
+        public int View { get; set; }
+        [ForeignKey("DanhMuc")]
+        public List<DanhMucModel> DanhMucID { get; set; }
+        [ForeignKey("NhaCungCap")]
+        public List<NhaCungCapModel> NhaCCID { get; set; }
+
 
 
     }
