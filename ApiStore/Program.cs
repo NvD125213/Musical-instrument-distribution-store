@@ -12,8 +12,17 @@ builder.Services.AddCors(options =>
 });
 // Add services to the container.
 builder.Services.AddTransient<IDatabaseHelper, DatabaseHelper>();
+
+builder.Services.AddTransient<IDanhMucResponsitory, DanhMucRespository>();
+builder.Services.AddTransient<IDanhMucBLL, DanhMucBLL>();
+
 builder.Services.AddTransient<ICustomerRespository, CustomerResponsitory>();
 builder.Services.AddTransient<ICustomerBLL, CustomerBLL>();
+
+
+builder.Services.AddTransient<ISanPhamResponsitory, SanPhamResponsitory>();
+builder.Services.AddTransient<ISanPhamBLL, SanPhamBLL>();
+
 
 builder.Services.AddTransient<IUserRespository, UserRespository>();
 builder.Services.AddTransient<IUserBLL, UserBLL>();

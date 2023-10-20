@@ -14,9 +14,14 @@ namespace DataModel
         [Required]
         public string TenDM { get; set; }
         public string SeoTitle { get; set; }
-        public int TrangThai { get; set; }
-        public int ThuTu { get; set; }
+        public bool TrangThai { get; set; }
+        public bool ThuTu { get; set; }
         public int ParentID { get; set; }
 
+        public List<DanhMucModel> DMConList { get; set; }
+
+       
+
     }
+   
 }

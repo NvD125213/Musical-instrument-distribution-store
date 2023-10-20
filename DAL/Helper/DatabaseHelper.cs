@@ -914,7 +914,62 @@ namespace DAL.Helper
             }
             return result;
         }
+
+        public List<DataTable> ExecuteSProcedureReturnListDataTable(out string msgError, string sprocedureName, params object[] paramObjects)
+        {
+            List<DataTable> result = new List<DataTable>(3);
+            result.Add(new DataTable());
+            result.Add(new DataTable());
+            result.Add(new DataTable());
+            DataTable tb = new DataTable();
+            SqlConnection connection;
+            try
+            {
+                SqlCommand cmd = new SqlCommand { CommandType = CommandType.StoredProcedure, CommandText = sprocedureName };
+                connection = new SqlConnection(StrConnection);
+                cmd.Connection = connection;
+
+                int parameterInput = (paramObjects.Length) / 2;
+
+                int j = 0;
+                for (int i = 0; i < parameterInput; i++)
+                {
+                    string paramName = Convert.ToString(paramObjects[j++]).Trim();
+                    object value = paramObjects[j++];
+                    if (paramName.ToLower().Contains("json"))
+                    {
+                        cmd.Parameters.Add(new SqlParameter()
+                        {
+                            ParameterName = paramName,
+                            Value = value ?? DBNull.Value,
+                            SqlDbType = SqlDbType.NVarChar
+                        });
+                    }
+                    else
+                    {
+                        cmd.Parameters.Add(new SqlParameter(paramName, value ?? DBNull.Value));
+                    }
+                }
+
+                SqlDataAdapter ad = new SqlDataAdapter(cmd);
+                ad.Fill(tb);
+                cmd.Dispose();
+                ad.Dispose();
+                connection.Dispose();
+                msgError = "";
+            }
+            catch (Exception exception)
+            {
+                tb = null;
+                msgError = exception.ToString();
+            }
+            return result;
+        
+
+    }
+
         #endregion
+    
     }
 
 }

@@ -13,7 +13,7 @@ namespace DAL
 {
     public class UserRespository : IUserRespository
     {
-        private readonly string _connectionString;
+      
         private IDatabaseHelper _dbHelper;
 
       

@@ -73,6 +73,16 @@ namespace DAL.Helper.Interface
         /// <param name="sprocedureName">Procedure Name</param>
         /// <param name="paramObjects">List Param Objects, Each Item include 'ParamName' and 'ParamValue'</param>
         /// <returns>String.Empty when run query success or Message Error when run query happen issue</returns>
+        /// 
+
+        List<DataTable> ExecuteSProcedureReturnListDataTable(out string msgError, string sprocedureName, params object[] paramObjects);
+        /// <summary>
+        /// Execute Procedure None Query
+        /// </summary>
+        /// <param name="sqlConnection">sqlConnection: Connection use to connect to SQL Server</param>
+        /// <param name="sprocedureName">Procedure Name</param>
+        /// <param name="paramObjects">List Param Objects, Each Item include 'ParamName' and 'ParamValue'</param>
+        /// <returns>String.Empty when run query success or Message Error when run query happen issue</returns>
         string ExecuteSProcedure(SqlConnection sqlConnection, string sprocedureName, params object[] paramObjects);
         /// <summary>
         /// Execute Procedure None Query with transaction
