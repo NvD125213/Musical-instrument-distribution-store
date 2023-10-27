@@ -67,6 +67,8 @@ namespace DAL
             }
         }
 
+       
+
         public bool UpdateUser(UserModel model)
         {
             string msgError = "";

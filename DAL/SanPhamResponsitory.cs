@@ -10,6 +10,7 @@ using DAL.Helper;
 using System.Data.SqlClient;
 using System.Data;
 using Microsoft.Extensions.Configuration;
+
 namespace DAL
 {
     public class SanPhamResponsitory : ISanPhamResponsitory
@@ -32,7 +33,7 @@ namespace DAL
             string msgError = "";
             try
             {
-                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "[sp_3_kq_sanpham]");
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_3_kq_sanpham");
                 if (!string.IsNullOrEmpty(msgError))
                     throw new Exception(msgError);
                 
@@ -45,37 +46,69 @@ namespace DAL
                 throw ex;
             }
         }
-        private List<ChiTietDonHangModel> ConvertDataTableToChiTietDonHangModel(DataTable dataTable)
+
+        public SanPhamModel GetSanPhambyID(int id)
         {
-            List<ChiTietDonHangModel> chiTietDonHangList = new List<ChiTietDonHangModel>();
-
-            foreach (DataRow row in dataTable.Rows)
+            string msgError = "";
+            try
             {
-                ChiTietDonHangModel chiTietDonHang = new ChiTietDonHangModel
-                {
-                    TenSanPham = row["TenSanPham"].ToString(),
-                    SoLuong = Convert.ToInt32(row["SoLuong"])
-                };
-                chiTietDonHangList.Add(chiTietDonHang);
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "sp_sanpham_get_by_id",
+                     "@MaHoaDon", id);
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                return dt.ConvertTo<SanPhamModel>().FirstOrDefault();
             }
-
-            return chiTietDonHangList;
-        }
-        private List<SanPhamModel> ConvertDataTableToSanPhamModel(DataTable dataTable)
-        {
-            List<SanPhamModel> sanPhamList = new List<SanPhamModel>();
-
-            foreach (DataRow row in dataTable.Rows)
+            catch (Exception ex)
             {
-                SanPhamModel sanPham = new SanPhamModel
-                {
-                    Ten = row["Ten"].ToString()
-                };
-                sanPhamList.Add(sanPham);
+                throw ex;
             }
-
-            return sanPhamList;
         }
 
+        public List<SanPhamModel> SearchTheoDM(int pageIndex, int pageSize, out long total, string tensp, int danhmuc)
+        {
+
+            string msgError = "";
+            total = 0;
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "SearchSanPham",
+                    "@page_index", pageIndex,
+                    "@page_size", pageSize,
+                    "@TenSP", tensp,
+                    "@DanhMuc", danhmuc
+                     );
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
+                return dt.ConvertTo<SanPhamModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<SanPhamModel> SearchTheoGia(int pageIndex, int pageSize, out long total, int giaMax, int giaMin)
+        {
+            string msgError = "";
+            total = 0;
+            try
+            {
+                var dt = _dbHelper.ExecuteSProcedureReturnDataTable(out msgError, "SearchSanPhamQuaGia",
+                    "@page_index", pageIndex,
+                    "@page_size", pageSize,
+                    "@MaxPrice", giaMax,
+                    "@MinPrice", giaMin
+                     );
+                if (!string.IsNullOrEmpty(msgError))
+                    throw new Exception(msgError);
+                if (dt.Rows.Count > 0) total = (long)dt.Rows[0]["RecordCount"];
+                return dt.ConvertTo<SanPhamModel>().ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

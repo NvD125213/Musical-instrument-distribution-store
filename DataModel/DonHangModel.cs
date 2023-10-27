@@ -14,15 +14,19 @@ namespace DataModel
         public int DonHangID { get; set; }
         [Required]
         public DateTime NgayDat { get; set; }
-        public int TrangThai { get; set; }
+        public string TenKH { get; set; }
+        public bool TrangThai { get; set; }
         public int TinhTrang { get; set; }
-        public DateTime NgayDen { get; set; }
-        public double GiamGia { get; set; }
-        public List<ChiTietDonHangModel> list_json_chitiethanghoa { get; set;  }
-        [ForeignKey("User")]
-        public int UserID { get; set; }
-        
-         
+     
+        public decimal TongGia { get; set; }
+        public List<ChiTietDonHangModel> list_json_chitietdonhang { get; set;  }
+      
+        [ForeignKey("ThanhToan")]
+        public int ThanhToanID { get; set; }
+        [ForeignKey("DiaChiID")]
+        public int DiaChiID { get; set; }
+
+
     }
     public class ChiTietDonHangModel
     {
@@ -30,11 +34,11 @@ namespace DataModel
         public int DonHangID { get; set; }
         [ForeignKey("tbl_SanPham")]
         public int SanPhamID { get; set; }
-        public string TenSanPham { get; set; }
-        public double Gia { get; set; }
+       
+        public decimal Gia { get; set; }
         public int SoLuong { get; set; }
-        [ForeignKey("tbl_ThanhToan")]
-        public int ThanhToanID { get; set; }
+        
+        
 
     }
 }

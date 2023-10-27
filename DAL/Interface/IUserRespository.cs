@@ -16,5 +16,7 @@ namespace DAL.Interface
         bool UpdateUser(UserModel model);
 
 
+
+
     }
 }

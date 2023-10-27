@@ -27,6 +27,8 @@ builder.Services.AddTransient<ISanPhamBLL, SanPhamBLL>();
 builder.Services.AddTransient<IUserRespository, UserRespository>();
 builder.Services.AddTransient<IUserBLL, UserBLL>();
 
+builder.Services.AddTransient<IHoaDonResponsitory, HoaDonResponsitory>();
+builder.Services.AddTransient<IDonHangBLL, DonHangBLL>();
 // Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -15,7 +15,7 @@ namespace DataModel
         public int SanPhamID { get; set; }
         [Required]
         public string Ten { get; set; }
-        public string SeoTitle { get; set; }
+        public bool SeoTitle { get; set; }
         public bool TrangThai { get; set; }
         public string ListAnh { get; set; }
         public string Anh { get; set; }
@@ -28,9 +28,9 @@ namespace DataModel
         public string ThongSoChiTiet { get; set; }
         public int View { get; set; }
         [ForeignKey("DanhMuc")]
-        public List<DanhMucModel> DanhMucID { get; set; }
+        public int DanhMucID { get; set; }
         [ForeignKey("NhaCungCap")]
-        public List<NhaCungCapModel> NhaCCID { get; set; }
+        public int NhaCungCapID { get; set; }
 
 
 

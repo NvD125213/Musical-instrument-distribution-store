@@ -20,9 +20,26 @@ namespace BLL
         {
             _spRes = spRes;
         }
+
         public BanChayModel BanChay()
         {
             return _spRes.GetBanChay();
+        }
+
+        public SanPhamModel GetSanPhambyID(int id)
+        {
+            return _spRes.GetSanPhambyID(id);
+        }
+
+        public List<SanPhamModel> SearchTheoDM(int pageIndex, int pageSize, out long total, string tensp, int danhmuc)
+        {
+            return _spRes.SearchTheoDM(pageIndex,pageSize, out total, tensp, danhmuc);
+        } 
+
+        public List<SanPhamModel> SearchTheoGia(int pageIndex, int pageSize, out long total, int giaMax, int giaMin)
+        {
+            return _spRes.SearchTheoGia(pageIndex,pageSize, out total, giaMax, giaMin);
+            
         }
     }
 }
